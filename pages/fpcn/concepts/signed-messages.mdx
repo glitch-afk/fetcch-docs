@@ -1,0 +1,22 @@
+# Signed Messages
+
+**FPCN** supports almost all of the major blockchains and many blockchains have different signing algorithms, we support verification of all of those algorithms, and signatures should be in the format
+
+```json
+{
+  "id": "satyam@fetcch",
+  "message": {
+    // will be stringified id
+  },
+  "signature": {
+    "signature": "0x000",
+    "type": "ecdsa",
+    "timestamp": "",
+    "pubKey": "0x00"
+  }
+}
+```
+
+This helps owners retain ownership of their own identities while doing off-chain stuff or relying on providers/relayers to do on/off-chain stuff.
+
+{/_## Custom Themes_/}

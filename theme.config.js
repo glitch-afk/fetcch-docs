@@ -1,12 +1,12 @@
 export default {
-  github: 'https://github.com/shuding/nextra',
-  docsRepositoryBase: 'https://github.com/shuding/nextra/blob/master',
-  titleSuffix: ' – Nextra',
+  github: 'https://github.com/fetcch/docs',
+  docsRepositoryBase: 'https://github.com/fetcch/docs',
+  titleSuffix: ' – Fetcch',
   logo: (
     <>
-      <span className="mr-2 font-extrabold hidden md:inline">Nextra</span>
+      <span className="mr-2 font-extrabold hidden md:inline">Fetcch</span>
       <span className="text-gray-600 font-normal hidden md:inline">
-        The Next.js Static Site Generator
+        Documentation for Fetcch
       </span>
     </>
   ),
@@ -61,7 +61,7 @@ export default {
   prevLinks: true,
   nextLinks: true,
   footer: true,
-  footerEditLink: 'Edit this page on GitHub',
-  footerText: <>MIT {new Date().getFullYear()} © Nextra.</>,
+  footerEditLink: false,
+  footerText: <>{new Date().getFullYear()} © Fetcch.</>,
   unstable_faviconGlyph: '👋',
 }

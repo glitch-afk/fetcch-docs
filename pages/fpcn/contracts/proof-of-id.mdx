@@ -1,0 +1,22 @@
+# Proof of ID
+
+**Provider Registry** needs **Proof of ID** to be able to create new IDs in their namespace.
+
+**Proof of ID** is data in format
+
+```json
+{
+  "id": "satyam@fetcch",
+  "pid": "1213edscxz",
+  "pidType": "IPFS",
+  "address": {
+    "default": "0x0000",
+    "others": ["0x0000", "0x0000"]
+  },
+  "merkelRoot": "0x000000",
+  "signature": "0x000000" // only if msg.sender isn't address.default
+}
+```
+
+Anybody could verify IDs using `merkleRoot` present on the chain.
+`signature` is needed when PID is updated by non `address.default` as `msg.sender`

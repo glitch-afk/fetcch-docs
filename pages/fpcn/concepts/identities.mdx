@@ -1,0 +1,36 @@
+# Identities
+
+The Fetcch Identities must ensure that users
+
+- own their identity
+- can transact between 2 or more identities or entities on the blockchain
+- are quick and easy to setup
+- address.default can be changed without losing ownership of identity
+
+Identity namespace is unique for each provider on the network, so a user can own `satyam@metamask` and another user can own `satyam@phantom`, both will be considered different and will not interfere with each other.
+
+Fetcch achieves this by having a separate identity namespace for each provider called **Provider Registry**. This is a smart contract on ethereum which issues ids to users, these ids will be alphanumeric ([A-Z a-z 0-9]).
+
+Identities metadata is stored on a decentralized storage solution and subsequently stored on **Provider Registry** alongside
+
+```json
+{
+  "id": "satyam@fetcch",
+  "pid": "1213edscxz",
+  "pidType": "IPFS",
+  "address": {
+    "default": "0x0000",
+    "others": ["0x0000", "0x0000"]
+  },
+  "merkelRoot": "0x000000",
+  "signature": "0x000000" // only if msg.sender isn't address.default
+}
+```
+
+With `merkleRoot` anybody can verify if the data on `pid` (or as we call it **Proof of ID**) is in the correct format, contains a valid signature, and is complementary to previous state of the ID (if updated)
+
+Fetcch Identities are purely decentralized, secure, and ownership-enabled because we use signatures at every step of the process and generate cryprographic proofs for easier verification by anyone.
+
+If `address.default` is hacked, then to recover ID, a user has to get 2/3 signatures of `others` addresses, with this they can change `address.default` and gain back access to their ID OR else `address.default` can set a recovery address which can be multisig or a friend, and that recovery address can update `address.default` in case of a hack.
+
+{/_## Custom Themes_/}

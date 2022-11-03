@@ -1,0 +1,5 @@
+# Dynamic Fee Structure
+
+- As transfers occur, excessively one-sided demand can cause pool imbalances, with high liquidity in well-liked source pools and low liquidity in pools with strong demand as destinations. Bridge transfers won’t succeed in these situations unless the liquidity is balanced again.
+
+- Hence we use the dynamic fee model by [`hyphen`](https://www.notion.so/On-Chain-Payment-Request-2a07409aa1ff4db08437cb278c205847). In this model the transfer fee is determined by pool available liquidity, pools are independent of external AMMs, and native bridges are not required to carry out rebalancing.

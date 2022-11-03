@@ -1,0 +1,86 @@
+# Smart COntracts
+
+### Bridge Adapters
+
+- By passing the necessary data, such as source chain data, destination chain data, and dex data, this contract is in charge of initiating a swap. It then communicates with other contracts.
+
+```js
+SwapData (
+    address _refundAd;
+    DexData _dex;
+    FromChainData _fromChain;
+    ToChainData _toChain;
+    address _receiver;
+    bytes _extraParams;
+    uint16 _commLayerID;
+)
+
+```
+
+### Communication Layers
+
+- This is an aggregator contract that interacts with required communication layers like axelar and layerzero for sending messages across chains.
+
+```js
+sendMsg (
+    uint256 _id,
+    address _destinationAddress,
+    bytes _payload,
+    bytes _extraParams
+)
+```
+
+### Dex Aggregator
+
+- The 1inch Aggregation Router, which facilitates token exchanging on the same chain, is integrated into this contract.
+
+```js
+swap (
+    IAggregationExecutor executor,
+    SwapDescription desc,
+    bytes data
+)
+```
+
+### Liquidity Pools
+
+- Liquidity Pools are maintained on the source and destination blockchains, where users deposit funds on the source chain and withdraw funds from the destination chain, after deducting protocol and gas fees.
+
+```js
+deposit (
+    address _tokenIn,
+    address _receiver,
+    uint256 _amount,
+    uint256 _commLayerId,
+    ToChainData _toChain,
+    DexData _dex,
+    bytes  _extraParams
+)
+```
+
+```js
+release(bytes _swapData)
+```
+
+### Fee Library
+
+- This contract is responsible for calculating equilibrium fees and rewards based on the liquidity available in pools and swap amounts.
+
+```js
+getEqRewards (
+    address _pool,
+    address _token,
+    uint256 _amount,
+    uint256 _suppliedLiq,
+    uint256 _IP
+)
+```
+
+```js
+getEqFees (
+    address _pool,
+    address _token,
+    uint256 _amount,
+    uint256 _suppliedLiq
+)
+```

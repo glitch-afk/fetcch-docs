@@ -1,0 +1,13 @@
+# Security Measures
+
+### Liquidity Pools
+
+- Since liquidity pools are a favourite target for hackers, we use the tokenized vault standard ERC-4626 to protect pools from outside threats. Vaults are smart contracts that accept token deposits and use those tokens to perform actions that give the depositor token rewards.
+
+### Cross-Chain Messaging
+
+- It is crucial to make sure that no messages are tampered with as they are sent from the source chain to the destination chain since fetcch uses messaging layers rather than bridges for cross-chain communication. Therefore, for cross-chain messaging, we use secure communication layers like layerzero and axelar.
+
+### Internal Audits
+
+- In addition to these security precautions, we perform internal audits on a regular basis that involve both manual and automatic security testing while taking into consideration all known solidity attack vectors and past bridge breaches.
