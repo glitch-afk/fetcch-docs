@@ -1,8 +1,8 @@
 {
-    "identities": "Identities",
-    "signed-messages": "Signed Messages",
-    "provider": "Provider",
-    "data-sources": "Data Sources",
-    "indexer": "Indexer",
-    "payments": "Payments"
+    "identities": "📃 Identities",
+    "signed-messages": "📃 Signed Messages",
+    "provider": "📃 Provider",
+    "data-sources": "📃 Data Sources",
+    "indexer": "📃 Indexer",
+    "payments": "📃 Payments"
 }
