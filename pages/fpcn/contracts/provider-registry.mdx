@@ -12,9 +12,9 @@ Provider Registry contract is responsible for registering identities by the prov
     "others": ["0x0000", "0x0000"]
   },
   "merkelRoot": "0x000000",
-  "signature": "0x000000" // only if msg.sender isn't address.default
+  "signature": "0x000000" // only if msg.sender isn't default.address
 }
 ```
 
-Ownership of identities will be with their respective `address.default` and a multisig of `address.other`
+Ownership of identities will be with their respective `default.address` and a multisig of `address.other`
 Provider can modify data on any identity with valid signatures from either of the two.

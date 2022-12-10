@@ -1,1 +1,70 @@
 # Payments
+
+FPCN simplifies payments for degens, everyday users, and your grandmother too. We do this by enabling transactional communication between 2 or more FPCN IDs.
+
+FPCN IDs are connected to various addresses from various blockchains and this helps in cross-chain transactions.
+
+FPCN supports **3 types of transaction**
+
+- P2P Transaction
+    - Cross Chain
+    - Same Chain
+- Payment Request Transaction
+    - Cross Chain
+    - Same Chain
+- Cross Chain Contract Execution
+
+#### P2P Transaction
+
+![Cross Chain P2P](https://i.imgur.com/oWaEMaa.png)
+*P2P Cross Chain Transaction*
+![P2P Same Chain Transaction](https://i.imgur.com/1Hivwvp.png)
+*P2P Same Chain Transaction*
+
+When an ID sends some token to another ID, it is constituted as a P2P Transaction.
+
+P2P transactions can either be the same chain or cross-chain depending on addresses used from ID.
+
+A payer can choose which chain and token to use and the recipient will receive it either on their `default.address` or if enabled `forcedSameChainPayment`, protocol chooses any other address connected to the ID which has the same chain as the payer.
+
+Cross-chain transactions are fulfilled using bridges in between, so on the frontend, `satyam@metamask` is paying `ray@phantom` but in reality `0x312312...` is paying `5fwerfwecn...` in USDC from Ethereum to Solana using XXX Bridge.
+
+#### Payment Request Transaction
+
+A dApp can send a payment request to any ID from FPCN which that ID can fulfill asynchronously, this can either be a same-chain or cross-chain payment.
+
+A Payment request can enable dApps to receive payments from users on a subscription basis or it can be used in a single-click checkout system.
+
+The payment request is of format
+```json!
+{
+    "payee": "satyam@metamask",
+    "payer": "ray@phantom",
+    "token": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "chain": "2", // fetcch chain id
+    "amount": "1000000", // in smallest denomination
+    "message": "Payment for your yeezy sneakers",
+    "label": "Yeezy#7813",
+    "data": "", // if contract call
+    
+    // added after resolving payment request
+    "transactionHash": "0xa66addcaf87f6f3135c982296eda74af4bb82cf67ec84065833bdff160943c44",
+    "dstTransactionHash": "", // if cross chain transaction
+    "fromChain": "2",
+    "fromToken": "0x8f7116ca03aeb48547d0e2edd3faa73bfb232538"
+}
+```
+
+A Payment Request can be dApp to Peer or dApp to dApp or Peer to Peer. It can also be either a simple token transfer or a complex transaction, it can be a cross-chain contract or same chain.
+
+#### Cross-Chain Contract Execution
+![](https://i.imgur.com/G9mcf28.png)
+*Cross Chain Contract Execution Flow*
+
+Cross Chain Contract Execution helps IDs to interact with smart contracts on a blockchain without requiring to have tokens or gas on that chain.
+
+For ex. a user on Solana can LP into uniswap pools without touch bridges or an ethereum user posts on a lens from their polygon wallet without requiring a polygon token or interacting with a bridge!
+
+In CCCE, a user uses dApp and initiates a transaction, it will be a smart contract call, Wallet will prompt which chain to use, and if it's different, wallet signs a message from the user confirming that they are ready for this transaction. ID's tokens are swapped using FPCN and the contract is called dApp's chain.
+
+> 💡FPCN will also support IDs for dApps in near future and that will simplify this process by a lot!
