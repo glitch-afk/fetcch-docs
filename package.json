@@ -1,24 +1,30 @@
 {
   "name": "fetcch_docs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Documentation for fetcchX",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glitch-afk/fetcch-docs.git"
+  },
+  "author": "glitch-afk",
   "scripts": {
     "dev": "next",
     "start": "next start",
     "build": "next build"
   },
-  "author": "Shu Ding",
   "license": "MIT",
   "dependencies": {
-    "next": "^12.1.0",
-    "nextra": "^1.1.0",
-    "nextra-theme-docs": "^1.2.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "next": "^13.0.6",
+    "nextra": "2.0.1",
+    "nextra-theme-docs": "2.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "@types/node": "18.11.10",
+    "typescript": "^4.9.3"
   },
   "prettier": {
     "semi": false,
