@@ -10,6 +10,10 @@ code {
     font-family: 'DM Mono', monospace;
 }
 
+[data-rehype-pretty-code-fragment] code {
+    font-family: 'DM Mono', monospace;
+}
+
 h1,
 h2,
 h3,
