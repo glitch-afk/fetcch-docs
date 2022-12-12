@@ -39,6 +39,12 @@ const config: DocsThemeConfig = {
             <link rel="icon" href="/favicon.ico" />
         </>
     ),
+    sidebar: {
+        defaultMenuCollapseLevel: 1
+    },
+    editLink: {
+        text: false
+    },
     darkMode: true,
     primaryHue: 33,
     project: {
