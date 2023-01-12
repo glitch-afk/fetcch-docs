@@ -1,0 +1,19 @@
+## Transaction Requests
+
+![Untitled(5).png](https://i.imgur.com/eYAp8tH.png)
+
+Transaction Requests are a new type of transaction introduced by Fetcch where instead of a traditional “Push” transaction a user initiates a transaction and decides the amount and other details, it will be a “Pull” transaction where another user or a dApp will initiate a transaction and decides the amount and other data 
+
+Transaction Requests can either be simple payments or can also execute a complex multistep transaction.
+
+These will be completely blockchain agnostic and enable payment gateways, point-of-sale systems, or any commerce platform to start accepting guaranteed crypto payments with very little integration. It can also be used by dApps to execute transactions without directly connecting to a wallet, so any dApp that can only be used for a single transaction can reduce the complexity of connecting to a wallet.
+
+As transaction requests are transmitted over HTTPS, we have a 100% guarantee that all network packets will be received by the end-user, we can also improve the current mobile wallets to a desktop dApp experience. dApps can directly send transaction requests to a mobile-based wallet, it can execute that transaction and dApps will be notified that the transaction is completed, so there is no overhead of a websocket connection dropping off.
+
+### How does this work?
+
+Wallets that have integrated **************************************Fetcch Payment SDK************************************** can directly call functions for creating transaction requests with required parameters. The transaction request is then registered on the Fetcch Storage layer and can be accessed by the wallet from anywhere in sub-second resolution.
+
+Once a transaction request is resolved, it is again updated on Fetcch storage after it validates transaction hash with already stored transaction request details.
+
+We also provide events to which dApps or wallets can subscribe like `payment_requested`, `request_resolved`

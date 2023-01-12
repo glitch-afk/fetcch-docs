@@ -1,70 +1,38 @@
-# Payments
+## Payments
 
-**FPCN** (Fetcch Payment Connectivity Network) simplifies payments for degens, everyday users, and your grandmother too. We do this by enabling transactional communication between 2 or more FPCN IDs.
+Satoshi’s first applied application for blockchain was to become a go-to hub for peer-to-peer payments, he also mentions that in the revolutionary Bitcoin Whitepaper. That goal was replaced with building a decentralized computer on which you can execute smart contracts. That was a very awesome decision as now with the power of doing anything on a blockchain, we can solve a lot of complexities in p2p payments and make that vision a reality.
 
-FPCN IDs are connected to various addresses from various blockchains and this helps in cross-chain transactions.
+That’s what we are doing at Fetcch, by using the tech that was built and refined over a span of 10+ years, we are making p2p payments super simple which will even surpass the usability of traditional payment methods.
 
-FPCN supports **3 types of transaction**
+With Fetcch, it will as easy as just entering a name, and the amount and click to pay, that’s it!
 
-- P2P Transaction
-    - Cross Chain
-    - Same Chain
-- Payment Request Transaction
-    - Cross Chain
-    - Same Chain
-- Cross Chain Contract Execution
+This will increase blockchain participation of normal people who can use this for sending money across countries or using it for settling remittances, or for just 2 friends settling their tab at the bar counter.
 
-#### P2P Transaction
+Not just normal people, but businesses can also use Fetcch for payouts, payment gateway using transaction requests, and much more!
 
-![Cross Chain P2P](https://i.imgur.com/oWaEMaa.png)
-*P2P Cross Chain Transaction*
-![P2P Same Chain Transaction](https://i.imgur.com/1Hivwvp.png)
-*P2P Same Chain Transaction*
+Fetcch has 2 types of transactions
 
-When an ID sends some token to another ID, it is constituted as a P2P Transaction.
+- P2P Payments
+    - It is peer-to-peer payments
+    - Mostly, any payment where the sender and receiver both are humans is considered a p2p payment
+    - These payments can be either same-chain or cross-chain payments means they can possibly use a DEX or a bridge.
+- P2D Transaction
+    - It is a peer-to-dapp transaction
+    - Mostly, it is either a user sending some assets directly to a dApp’s address or executing a smart contract function on the blockchain
+    - These transactions can be either same-chain or cross-chain payments means they can possibly use a DEX or a bridge.
+    - For cross-chain transactions in P2D, flow is something like this
+        - Identity tries executing a smart contract on BSC
+        - FPCN detects that there are no funds in any of the identity’s BSC address
+        - FPCN asks permission from users to swap some of their funds from another chain or address to BSC’s address
+            - This chain & address will be decided based on which route takes less time and fewer fees
+        - If the user gives permission, that bridge transaction happens and the smart contract is executed in less than 3 clicks and ~2 minutes
 
-P2P transactions can either be the same chain or cross-chain depending on addresses used from ID.
+### How does this work?
 
-A payer can choose which chain and token to use and the recipient will receive it either on their `default.address` or if enabled `forcedSameChainPayment`, protocol chooses any other address connected to the ID which has the same chain as the payer.
+Wallets that have integrated Fetcch Payments API can build a transaction with a sender & receiver identity, what the sender wants to send, and from which wallet, Fetcch Payments API will check the Identity configuration of the receiver identity and which addresses it contains, based on that it will determine if the transaction needs to be same-chain or cross-chain.
 
-Cross-chain transactions are fulfilled using bridges in between, so on the frontend, `satyam@metamask` is paying `ray@phantom` but in reality `0x312312...` is paying `5fwerfwecn...` in USDC from Ethereum to Solana using XXX Bridge.
+For P2D transactions, wallets need to specify that while sending payload to Fetcch Payments API.
 
-#### Payment Request Transaction
+If wallets want, Fetcch Payments API can also send transaction data along with the response, so that they can directly execute it by sending it `sendTransaction` or ethers.js, or else they can execute that transaction.
 
-A dApp can send a payment request to any ID from FPCN which that ID can fulfill asynchronously, this can either be a same-chain or cross-chain payment.
-
-A Payment request can enable dApps to receive payments from users on a subscription basis or it can be used in a single-click checkout system.
-
-The payment request is of format
-```json copy
-{
-    "payee": "satyam@metamask",
-    "payer": "ray@phantom",
-    "token": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-    "chain": "2", // fetcch chain id
-    "amount": "1000000", // in smallest denomination
-    "message": "Payment for your yeezy sneakers",
-    "label": "Yeezy#7813",
-    "data": "", // if contract call
-    
-    // added after resolving payment request
-    "transactionHash": "0xa66addcaf87f6f3135c982296eda74af4bb82cf67ec84065833bdff160943c44",
-    "dstTransactionHash": "", // if cross chain transaction
-    "fromChain": "2",
-    "fromToken": "0x8f7116ca03aeb48547d0e2edd3faa73bfb232538"
-}
-```
-
-A Payment Request can be dApp to Peer or dApp to dApp or Peer to Peer. It can also be either a simple token transfer or a complex transaction, it can be a cross-chain contract or same chain.
-
-#### Cross-Chain Contract Execution
-![](https://i.imgur.com/G9mcf28.png)
-*Cross Chain Contract Execution Flow*
-
-Cross Chain Contract Execution helps IDs to interact with smart contracts on a blockchain without requiring to have tokens or gas on that chain.
-
-For ex. a user on Solana can LP into uniswap pools without touch bridges or an ethereum user posts on a lens from their polygon wallet without requiring a polygon token or interacting with a bridge!
-
-In CCCE, a user uses dApp and initiates a transaction, it will be a smart contract call, Wallet will prompt which chain to use, and if it's different, wallet signs a message from the user confirming that they are ready for this transaction. ID's tokens are swapped using FPCN and the contract is called dApp's chain.
-
-> 💡FPCN will also support IDs for dApps in near future and that will simplify this process by a lot!
+If that transaction is cross-chain using a bridge, they can track that transaction using **Fetcch Analytics API,** and also subscribe to events on that transaction, events include - `transaction_execute`, `transaction_bridge_received`, `transaction_bridge_transmitted`
