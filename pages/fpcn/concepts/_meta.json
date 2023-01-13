@@ -3,6 +3,5 @@
     "identities": "Fetcch Identities",
     "payments": "Payments",
     "transaction-requests": "Transaction Requests",
-    "authentication": "Authentication",
-    "data-sources": "Data Sources"
+    "authentication": "Authentication"
 }
