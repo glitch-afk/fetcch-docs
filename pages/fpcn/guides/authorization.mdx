@@ -1,0 +1,21 @@
+# Authorization
+
+Some API routes require an authorization token and some don’t need one.
+
+There are 2 types of an authorization tokens that we support
+
+### Provider Secret Key
+
+After successfully registering, each provider gets a uniquely generated **Secret Key**, which they can use in an HTTP request for authenticating with the FSL & FCL.
+
+Only encrypted versions of the secret key are stored on FSL, so the provider needs to keep it in a secure place, we also have options to revoke or create a new secret key
+
+To authorize, send your secret key in headers with key `secret-key`
+
+### User JWT Token
+
+Some routes like Transaction requests may need a jwt token to authorize the user’s involvement in the process.
+
+Once a user successfully authenticates with a dApp using ************************************************Authentication Requests************************************************, dApp receives an access token and refresh token
+
+To authorize, dApp needs to send an access token in the header in the format `authorization: Bearer {accessToken}`

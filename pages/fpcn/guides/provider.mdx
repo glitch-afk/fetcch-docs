@@ -1,0 +1,21 @@
+# Provider
+
+- ### Get Provider
+    
+    Route - `/v1/providers/<provider_id>`
+    
+    Method - Get
+    
+    Response -
+    
+    ```json
+    {
+    	"id": "metamask",
+    	"logo": "logo URL",
+    	"delimiter": "@",
+    	"txHash": "transaction hash", // ethereum tx hash
+    	"registryContract": "address",
+    	"dataSource": "IPFS",
+    	"owner": {...user object}
+    }
+    ```
