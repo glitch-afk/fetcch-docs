@@ -1,0 +1,27 @@
+## Fetcch Providers
+
+Fetcch Providers are wallets or dApps or any organization that wants to provide chain agnostic, custom branded identities to their users. These custom-branded identities then can interact with other identities from other providers in the ecosystem thus creating simpler user interactions.
+
+![Provider](../../../public/provider.png)
+
+Each provider will have its own namespace identified by a unique alphanumeric identifier. Each identity issued by this provider will have that namespace attached to it separated by a delimiter which will be one of `@`, `-`, `.`. They can issue numerous identities under this namespace. Each provider will receive an API key and can set an owner address (ethereum) to their namespace, any request made should either have an API key or be originated from that owner address.
+
+Providers have the following powers given by protocol
+
+- Issue Identities
+- Manage Identities
+    - Only with valid timestamped signatures from the owner of that identity
+
+Providers also manage the frontend side for managing and interacting with identity, there they can probably identify malicious transaction requests or simulate a transaction locally and predict the output before the transaction even happens, block certain identities, and much more. These are the things the user needs to take in mind before getting involved with a provider.
+
+### Provider NFTs
+
+Providers can issue identities registered under their namespace NFTs as a reward mechanism. Fetcch has deployed a factory contract on each supported chain, providers can choose chains and upload NFT metadata, anytime an identity is registered, a job is registered in Fetcch Compute, which mints NFT to an address of that identity from that chain. Gas fees will be either paid by the provider or by the user, in this case, the user needs to mint their own NFTs.
+
+### Provider Dashboard
+
+We’ve built a dashboard for providers where they can manage their namespace and see statistics like all the identities registered under their namespace, they can set up flows to issue NFTs to these users on various blockchains and also enable them to airdrop assets to all of their users in a single click.
+
+### How are providers chosen?
+
+As Fetcch is a protocol, anybody can create a provider and start issuing identities but in our beta, we are limiting this ability, so that only verified teams will be able to acquire provider namespaces.

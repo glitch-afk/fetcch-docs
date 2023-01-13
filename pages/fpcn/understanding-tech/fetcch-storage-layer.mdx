@@ -1,0 +1,11 @@
+# Fetcch Storage Layer (FSL)
+
+Storage is very important in FPCN, it needs to be decentralized, highly accessible, and have a resolution speed in milliseconds and FSL just does this.
+
+FSL is not reinventing the wheel (this is a recurring theme in what we build),  it is built by a combination of highly distributed databases, decentralized storage solutions like IPFS, Arweave, and a blockchain like ethereum.
+
+![Untitled(7).png](https://i.imgur.com/aTC0otD.png)
+
+FSL API exposes endpoints for the highly distributed databases which then are replicated on decentralized storage solutions and CIDs along with its Merkle proof are stored on ethereum.
+
+Having distributed databases helps us to provide subsecond requests to our users, increasing the developer and user experience, then replicating that data on IPFS/Arweave saves us from directly storing data on ethereum. Then we store received CID with a merkle proof of that data on ethereum which acts as an ultimate source of truth. In the case that databases are completely or partially deleted, then we retrieve the exact truthful state from ethereum.

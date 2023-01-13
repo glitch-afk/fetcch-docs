@@ -1,8 +1,8 @@
 {
-    "identities": "Identities",
-    "signed-messages": "Signed Messages",
-    "provider": "Provider",
-    "data-sources": "Data Sources",
-    "indexer": "Indexer",
-    "payments": "Payments"
+    "providers": "Fetcch Providers",
+    "identities": "Fetcch Identities",
+    "payments": "Payments",
+    "transaction-requests": "Transaction Requests",
+    "authentication": "Authentication",
+    "data-sources": "Data Sources"
 }

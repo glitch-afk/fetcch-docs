@@ -1,104 +1,86 @@
-# Identities
+## Fetcch Identities
 
-The Fetcch Identities must ensure that users
+Addresses are the heart of any blockchain, they are used to refer to possibly a user or an executable program on-chain. Addresses are super inconvenient and complex for a user. 
 
-- own their identity
-- can transact between 2 or more identities or entities on the blockchain
-- are quick and easy to setup
-- default.address can be changed without losing ownership of identity
+![Fetcch Identity](https://i.imgur.com/pLu0D84.png)
 
-Identity namespace is unique for each provider on the network, so a user can own `satyam@metamask` and another user can own `satyam@phantom`, both will be considered different and will not interfere with each other.
+Fetcch Identities are chain-agnostic identities that can be connected to multiple addresses or DIDs based on any blockchain. So instead of having various identities spanned across various blockchains, we can have a single identity spanning various blockchains. `satyam@metamask` will have identities from `ethereum`, `polygon`, `solana`, `bsc`, and many more!
 
-Fetcch achieves this by having a separate identity namespace for each provider called **Provider Registry**. This is a smart contract on ethereum which issues ids to users, these ids will be alphanumeric ([A-Z a-z 0-9]).
+Fetcch Identities support DID standard and we are developing a resolver for it!
 
-Identities metadata is stored on a decentralized storage solution and subsequently stored on **Provider Registry** alongside
+`satyam@metamask` has 3 parts, they are
 
-```json copy
-{
-  "id": "satyam@metamask",
-  "provider": {
-    "id": "metamask",
-    "delimiter": "@"
-  },
-  "identifier": "satyam",
-  "currentSignature": "",
-  "previousSignature": "",
-  "default": {
-    "address": "0x16cCA730925E3DB8E60BBa9e564Aff4d588E0364",
-    "chain": {
-      "id": "1",
-      "name": "Ethereum Mainnet",
-      "chainId": "1"
-    }
-  },
-  "others": [
-    {
-      "address": "0x3cB51236f17459f11fc5E934477762839caC5133",
-      "chain": [
-        {
-          "id": "2",
-          "name": "Polygon Mainnet",
-          "chainId": "137"
-        },
-        {
-          "id": "3",
-          "name": "Binance Smart Chain Mainnet",
-          "chainId": "56"
-        },
-        {
-          "id": "5",
-          "name": "Optimism",
-          "chainId": "10"
-        }
-      ]
-    },
-    {
-      "address": "0x16cCA730925E3DB8E60BBa9e564Aff4d588E0364",
-      "chain": [
-        {
-          "id": "2",
-          "name": "Polygon Mainnet",
-          "chainId": "137"
-        },
-        {
-          "id": "3",
-          "name": "Binance Smart Chain Mainnet",
-          "chainId": "56"
-        },
-        {
-          "id": "6",
-          "name": "Arbitrum",
-          "chainId": "42161"
-        }
-      ]
-    }
-  ]
-},
-```
-*FPCN ID Metadata - more about it here*
+- Identifier
+    - Unique username representing an identity
+    - The identifier is unique to a provider namespace
+- Delimiter
+    - A separator that separates the identifier from the provider
+- Provider
+    - Unique namespace for providers
 
-```json copy
-{
-  "id": "satyam@fetcch",
-  "pid": "1213edscxz",
-  "pidType": "IPFS",
-  "pid": "O11x4IdY-058Cl_7xkunC4LUKyWQdkE-NRM8BNQyDmE",
-  "pidType": "ARWEAVE",
-  "address": {
-    "default": "0x0000",
-    "others": ["0x0000", "0x0000"]
-    "default": "0x16cCA730925E3DB8E60BBa9e564Aff4d588E0364",
-    "others": ["0x3cB51236f17459f11fc5E934477762839caC5133", "0x16cCA730925E3DB8E60BBa9e564Aff4d588E0364"]
-  },
-  "merkelRoot": "0x000000",
-  "merkelRoot": "59672cb5533759a1ecfd620cbb40be1a243522c056d5c67b7100adf1cf3162f7",
-  "signature": "0x000000" // only if msg.sender isn't address.default
-}
-```
-*On Chain Identities*
+So, in the above identity - `satyam@metamask` ⇒ `satyam` is an identifier, `@` is a delimiter and `metamask` is a provider. 
 
-With `merkleRoot` anybody can verify if the data on `pid` (or as we call it **Proof of ID**) is in the correct format, contains a valid signature, and is complementary to previous state of the ID (if updated)
+Fetcch Identities can have 2 types of identities connected to it
 
-Fetcch Identities are purely decentralized, secure, and ownership-enabled because we use signatures at every step of the process and generate cryprographic proofs for easier verification by anyone.
+- Default
+    - This will be the default identity of a user
+    - It can be of any chain that one wants
+- Secondary
+    - This will be used if interaction can’t happen with your default identity
+    - It can be of any multiple chains that one wants
 
-If `default.address` is hacked, then to recover ID, a user has to get 2/3 signatures of `others` addresses, with this they can change `default.address` and gain back access to their ID OR else `default.address` can set a recovery address which can be multisig or a friend, and that recovery address can update `default.address` in case of a hack.
+Based on the interaction FPCN chooses which identity to use.
+
+Each Fetcch Identity will also have an associated Identity Config, where identity owners can update custom rules for choosing which blockchains to use while doing a transaction, for eg
+
+- `forcedSameChainPayment` option enforces that any transaction that can be done without using bridges should be done without using bridges (secondary addresses will be used if needed), if this is false, the default chain will be chosen and a bridge might be used
+- `defaultToken` - identity owner can set a default token to which the asset will be bridged when doing a cross-chain transaction as we don’t want users to have wrapped assets that are super risky to hold, by default, it is a stablecoin.
+
+> **********💡Important Notes**********
+
+> All of these identities/addresses will be completely owned by the user and not generated by Fetcch in any way.
+
+> This helps our partner wallets use any technology to generate private keys/seed phrases like MPC, Smart Contract Wallet, or a simple in-device generation. With the introduction of Solana Saga, directly storing seed phrases in the secure enclave of a device, thereby increasing security.
+
+### **********************What Fetcch Identity can do?**********************
+
+Fetcch Identities cannot be only used to identify a single person across multiple blockchains, but one can do a lot more with these identities.
+
+Fetcch Identities are capable of doing
+
+- P2P Payments
+    - Do seamless P2P payments, between 2 identities without worrying about blockchain.
+    - `satyam@metamask` can send `satyam@phantom` without worrying that they both are based on different blockchain
+    - FPCN will detect that both of them are based on different chains and will bridge those sent assets over to another blockchain with minimal fees and the fastest speed possible.
+- Transaction Requests
+    - 2 or more identities can request transactions from each other
+    - `satyam@phantom` can request `satyam@metamask` 200$ for some service
+    - These transaction requests can be then seen in the user’s wallet from where they can settle it by executing the transaction
+    - Flow is similar to a P2P payment but in this case, the amount and token are selected by the receiver itself
+    - Will be a game changer for businesses wanting to accept crypto payments and recurring crypto payments
+- Authentication
+    - Identities can also be used for authenticating with a dApp
+    - Authentication is done using ****************************************************“Authentication Requests”****************************************************
+    - Like Transaction requests, authentication requests are directly sent to an identity which then is visible in the user’s wallet
+    - Users can accept or reject an authentication request.
+    - Once accepted, a JWT token is generated that needs to be sent everytime
+    - Each JWT token is scoped with a certain set of permissions, so a user only has to give limited permissions to a dApp, reducing the chances of malicious transactions or signatures taken by a malicious dApps
+    - As JWT authentication is only supported through integration of our SDKs, wallets can also have different types of authentication mechanisms like WalletConnect, or Injected Method.
+- Account Abstraction
+    - The key to solving current blockchain UX issues like multiple signatures in a single flow, approval of erc20 tokens can be solved using Account Abstraction
+    - Implementing Account Abstraction has 2 ways, by doing consensus changes or using off-chain actors with help of a smart contract wallet
+    - Having consensus-level changes to blockchains will take months or even years to be completed, so to enable the features of account abstraction today, we are using a combination of smart contract wallet and off-chain actors like relayers who are validated on-chain
+    - As Fetcch is solving payments for users and dApps, it makes sense for us to integrate something like AA which will enable our users to have one-click transactions even in complex flows like DEX or Perpetual Trading.
+    - We noticed that the traditional smart contract wallet used for AA is not sufficient for us, so we forked an SCW and implemented a multi-owner system for it.
+    - So instead of SCW having just one owner, our AA SCW will have multiple owners, each of those will have a different level of permissions and one of them will be the defacto owner.
+    - So, the default address will the owner of SCW, and secondary addresses will all have some level of permission like sending a transaction or just being involved in recovery or doing nothing.
+    - Also, these SCWs have social recovery enabled (Vitalik talks about this here), This makes our SCW have the security of a Multisig but function like a wallet with a single owner, greatly increasing the security and usability.
+    - SCW will be deployed for every identity registered with a Fetcch Provider
+- Fetcch Modules
+    - Fetcch will enable developers to build modules that are built on top of Fetcch’s Identity & Settlement layer
+    - One of those modules that we are building internally is **********************Game Module**********************
+    - The game module will help web3 games or even web2 games to use Fetcch’s Identity & Settlement layer to have cross-game/ecosystem statistics.
+    - This will enable games to use statistics from other games and reward, increase ranks or do all kinds of stuff
+    - This is one example of Fetcch Modules, in future we will have modules for everything from DeFi, NFTs, On/Off Ramps, and even zkKYC
+    - Also, modules are very easy to integrate if they have already integrated Fetcch’s main SDK.
+    - We can see entire business models being built out of Fetcch Modules.
