@@ -4,6 +4,19 @@
 
 One thing that web3 has enabled very fabulously is that you can connect your wallet to a dApp and all sorts of stuff, it's like connecting your bank account with a website. But connecting something like a bank account to a website has its own problem and that applies to a crypto wallet too. Sometimes phishy websites ask to sign malicious data, which they can use for impersonating you somewhere, essentially hacking your identity. This has already been solved in web2 using scoped JWT tokens, where apps with a JWT token can only do or access certain data, also most of the developers understand these flows of authentication more than web3 authentication.
 
+### BTW, What is JWT?
+
+According to jwt.io, 
+*“JSON Web Token (JWT) is an open standard ([RFC 7519](https://tools.ietf.org/html/rfc7519))
+ that defines a compact and self-contained way for securely transmitting
+ information between parties as a JSON object. This information can be 
+verified and trusted because it is digitally signed. JWTs can be signed 
+using a secret (with the **HMAC** algorithm) or a public/private key pair using **RSA** or **ECDSA**.”*
+
+JWT or JSON Web Tokens helps us encode some random data in a token that can only be deciphered if one has access to SECRET or private key used to sign that JWT.
+
+This enables encoding a lot of data about the authenticated user in the token and managing sessions, and permissions using it, its a very clever use of cryptography to improve user experience.
+
 So, at Fetcch, we decided to solve this, now Fetcch Identities can authenticate with dApp which has integrated **Fetcch Onboarding SDK** using scoped JWT tokens. You can scope a JWT token by only giving it permission to execute some JSON-RPC methods and not all. 
 
 Authentication Requests paired with Transaction requests are a game changer for the web3 ecosystem as it greatly improves UX on apps and websites, as HTTP requests make sure 100% of packets are reached to the receiver, dApps and wallets can be 100% sure that requests are resolved and the user has a seamless experience without the need to connect wallet again and again. 
