@@ -1,0 +1,98 @@
+# Payments
+
+### Build Transaction (P2P)
+
+>    💡 `secret-key` required
+    
+Route - `/v1/payments/build/`
+
+Method - `POST`
+
+Request Body -
+
+```json
+{
+    "payee": "satyam@metamask",
+    "userConfig": {
+        "fromId":"satyam@phantom",
+        "fromToken":"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "fromChain":"1",
+        "fromAddress": "0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf",
+        "amount": "100000000"
+    }
+}
+```
+
+Response - 
+
+```json
+{
+    "transaction": {...transaction object},
+    "approveTransaction": {...approval transaction object} | null,
+    "userConfig": {
+        "fromId": "satyam@phantom",
+        "fromChain": {...chain object},
+        "fromToken": {...token object},
+        "fromAddress": "0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf",
+        "amount": "100000000"
+    },
+    "toConfig": {
+        "toId": "satyam@metamask",
+        "bridgeDetails": {
+            "tool": "",
+            "name": "",
+            "estAmount": "200000000",
+            "toChain": {...chain object},
+            "toToken": {...token object}
+        }
+    }
+}
+```
+
+### Build Transaction (Transaction request)
+
+>    💡 `secret-key` required
+    
+Route - `/v1/payments/build/`
+
+Method - `POST`
+
+Request Body -
+
+```json
+{
+    "transactionRequestId": 1,
+    "userConfig": {
+        "fromId":"satyam@metamask",
+        "fromToken":"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "fromChain":"1",
+        "fromAddress": "0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf",
+    }
+}
+```
+
+Response - 
+
+```json
+{
+    "transaction": {...transaction object},
+    "approveTransaction": {...approval transaction object} | null,
+    "userConfig": {
+        "fromId": "satyam@metamask",
+        "fromChain": {...chain object},
+        "fromToken": {...token object},
+        "fromAddress": "0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf",
+        "amount": "100000000"
+    },
+    "toConfig": {
+        "toId": "satyam@phantom",
+        "bridgeDetails": {
+            "tool": "",
+            "name": "",
+            "estAmount": "200000000",
+            "toChain": {...chain object},
+            "toToken": {...token object}
+        }
+    }
+}
+```

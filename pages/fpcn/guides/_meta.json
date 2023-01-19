@@ -1,5 +1,7 @@
 {
   "authorization": "Authorization",
   "provider": "Provider",
-  "identity": "Identity"
+  "identity": "Identity",
+  "transaction-request": "Transaction Request",
+  "payments": "Payments"
 }

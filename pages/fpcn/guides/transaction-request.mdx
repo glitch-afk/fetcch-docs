@@ -1,0 +1,170 @@
+# Transaction Requests
+
+### Get Transaction Request
+
+### Create Transaction Request
+
+>    💡 `secret-key` required
+    
+Route - `/v1/request/`
+
+Method - `POST`
+
+Request Body -
+
+```json
+{
+    "payer": "satyam@metamask",
+    "receiver": "satyam@phantom",
+    "token": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "chain": "2",
+    "amount": "10000000000000000000",
+    "message": "Payment for some product",
+    "label": "Product#7813"
+}
+```
+
+Response - 
+
+```json
+{
+    "id": 1,
+    "payer": "satyam@metamask",
+    "receiver": "satyam@phantom",
+    "token": {...token object},
+    "chain": {...chain object},
+    "amount": "10000000000000000000",
+    "message": "Payment for some product",
+    "label": "Product#7813",
+    "data": "",
+    "executed": false,
+    "transactionHash": "",
+    "sameChain": true,
+    "fromChain": null,
+    "fromToken": null,
+    "dstTransactionHash": ""
+}
+```
+
+### Update Transaction Request
+
+>    💡 `secret-key` required
+    
+Route - `/v1/request/`
+
+Method - `PATCH`
+
+Request Body -
+
+```json
+{
+    "id": 1,
+    "transactionHash": "0x03f27d0a569a1ea0ef39c21c7e889cd198fd8356a9a8a7d36d2f1136bcca5914",
+    "fromChain": "2",
+    "fromToken": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+}
+```
+
+Response - 
+
+```json
+{
+    "id": 1,
+    "payer": "satyam@metamask",
+    "receiver": "satyam@phantom",
+    "token": {...token object},
+    "chain": {...chain object},
+    "amount": "10000000000000000000",
+    "message": "Payment for some product",
+    "label": "Product#7813",
+    "data": "",
+    "executed": true,
+    "transactionHash": "0x03f27d0a569a1ea0ef39c21c7e889cd198fd8356a9a8a7d36d2f1136bcca5914",
+    "sameChain": true,
+    "fromChain": {...chain object},
+    "fromToken": {...token object},
+    "dstTransactionHash": ""
+}
+```
+
+### Subscribe to transaction requests
+
+>    💡 `secret-key` required
+
+> This will be fired when payment request is updated
+    
+Route - `/ws/v1/request/`
+
+Request Body -
+
+```json
+{
+    "method": "resolved_payment_request",
+    "params": {
+        "id": 1
+    }
+}
+```
+
+Response - 
+
+```json
+{
+    "id": 1,
+    "payer": "satyam@metamask",
+    "receiver": "satyam@phantom",
+    "token": {...token object},
+    "chain": {...chain object},
+    "amount": "10000000000000000000",
+    "message": "Payment for some product",
+    "label": "Product#7813",
+    "data": "",
+    "executed": true,
+    "transactionHash": "0x03f27d0a569a1ea0ef39c21c7e889cd198fd8356a9a8a7d36d2f1136bcca5914",
+    "sameChain": true,
+    "fromChain": {...chain object},
+    "fromToken": {...token object},
+    "dstTransactionHash": ""
+}
+```
+
+### Subscribe to a identity's transaction requests
+
+>    💡 `secret-key` required
+
+> This will be fired when an identity is requested payment
+    
+Route - `/ws/v1/request/`
+
+Request Body -
+
+```json
+{
+    "method": "received_payment_request",
+    "params": {
+        "id": "satyam@metmask"
+    }
+}
+```
+
+Response - 
+
+```json
+{
+    "id": 1,
+    "payer": "satyam@metamask",
+    "receiver": "satyam@phantom",
+    "token": {...token object},
+    "chain": {...chain object},
+    "amount": "10000000000000000000",
+    "message": "Payment for some product",
+    "label": "Product#7813",
+    "data": "",
+    "executed": true,
+    "transactionHash": "0x03f27d0a569a1ea0ef39c21c7e889cd198fd8356a9a8a7d36d2f1136bcca5914",
+    "sameChain": true,
+    "fromChain": {...chain object},
+    "fromToken": {...token object},
+    "dstTransactionHash": ""
+}
+```
