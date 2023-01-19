@@ -1,89 +1,204 @@
 # Identity
 
-- ### Generate Message
+### Find Identity
+
+> 💡`secret-key` required
+
+Route - `/v1/identity`
+
+Method - `GET`
+
+URL Query - `?id=satyam@metamask` or `?signedMsg=SIGNATURE` or `?address=ADDRESS`
+
+Response -
+
+```json
+{
+  "id": "sax@metamask",
+  "identifier": "sax",
+  "provider": {...provider object},
+  "default": {
+    "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+    "chain": {...chain object},
+    "isContract": false
+  },
+  "secondary": [
+    {
+      "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+      "chain": {...chain object},
+      "isContract": false
+    },
+    {
+      "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+      "chain": {...chain object},
+      "isContract": false
+    }
+  ],
+  "dataSourceTx": {
+    "txId": "ARWEAVE_IPFS_CID",
+    "txURL": "ARWEAVE_IPFS_URL"
+  },
+  "currentSignature": "SIGNATURE"
+}
+```
+
+### Generate Message
     
 >    💡 Sign this message with the default address so that smart contract can validate
     
-    Route - `/v1/identity/message`
-    
-    Method - `POST`
-    
-    Request body -
-    
-    ```json
-    {
-        "identifier": "sax",
-        "provider": "metamask",
-        "default": {
-          "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
-          "chain": 3,
-          "isContract": false
-        },
-        "others": [
-    			{
-    	      "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
-    	      "chain": 1,
-    	      "isContract": false
-    	    },
-    			{
-    	      "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
-    	      "chain": 2,
-    	      "isContract": false
-    	    }
-    		],
-    }
-    ```
-    
-    Response -
-    
-    ```json
-    {
-      "message": "Creating sax@fetcch onbehalf of user evm:0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c\n\n{\"id\":\"sax@fetcch\",\"identifier\":\"sax\",\"provider\":{\"id\":\"fetcch\",\"delimiter\":\"@\"},\"default\":{\"address\":\"0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c\",\"chain\":{\"id\":3,\"name\":\"Binance Smart Chain Mainnet\",\"chainId\":56,\"type\":\"EVM\"},\"isContract\":false},\"others\":[],\"nonce\":1}\n\nProvider: fetcch\nChain ID: 56\nNonce: 1",
-      "nonce": 1,
-      "walletId": {
-        ...identity object
+Route - `/v1/identity/generate-message`
+
+Method - `POST`
+
+Request body -
+
+```json
+{
+    "identifier": "satyam",
+    "provider": "metamask",
+    "default": {
+      "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+      "chain": 3,
+      "isContract": false
+    },
+    "secondary": [
+      {
+        "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+        "chain": 1,
+        "isContract": false
       },
-      "providerSignature": "0x020b48ac334f0af6f51205f2efb437c800ccffb7f59f55445dcbafdee0068420"
-    }
-    ```
-    
-- ### Create Identity
+      {
+        "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+        "chain": 2,
+        "isContract": false
+      }
+    ],
+}
+```
+
+Response -
+
+```json
+{
+  "message": "Creating sax@fetcch onbehalf of user evm:0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c\n\n{\"id\":\"sax@fetcch\",\"identifier\":\"sax\",\"provider\":{\"id\":\"fetcch\",\"delimiter\":\"@\"},\"default\":{\"address\":\"0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c\",\"chain\":{\"id\":3,\"name\":\"Binance Smart Chain Mainnet\",\"chainId\":56,\"type\":\"EVM\"},\"isContract\":false},\"others\":[],\"nonce\":1}\n\nProvider: fetcch\nChain ID: 56\nNonce: 1",
+  "nonce": 1,
+  "identity": {
+    ...identity object
+  },
+  "providerSignature": "0x020b48ac334f0af6f51205f2efb437c800ccffb7f59f55445dcbafdee0068420"
+}
+```
+
+### Create Identity
 
 >    💡 `secret-key` required
     
-    Route - `/v1/identity/`
-    
-    Method - `POST`
-    
-    Request Body -
-    
-    ```json
+Route - `/v1/identity/`
+
+Method - `POST`
+
+Request Body -
+
+```json
+{
+  "identifier": "sax",
+  "provider": "metamask",
+  "default": {
+    "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+    "chain": 3,
+    "isContract": false
+  },
+  "secondary": [
     {
-        "identifier": "sax",
-        "provider": "metamask",
-        "default": {
-          "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
-          "chain": 3,
-          "isContract": false
-        },
-        "others": [
-    			{
-    	      "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
-    	      "chain": 1,
-    	      "isContract": false
-    	    },
-    			{
-    	      "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
-    	      "chain": 2,
-    	      "isContract": false
-    	    }
-    		],
-    		"currentSignature": "0x00"
+      "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+      "chain": 1,
+      "isContract": false
+    },
+    {
+      "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+      "chain": 2,
+      "isContract": false
     }
-    ```
+  ],
+  "currentSignature": "SIGNATURE"
+}
+```
+
+Response - 
+
+```json
+{
+  "id": "sax@metamask",
+  "identifier": "sax",
+  "provider": {...provider object},
+  "default": {
+    "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+    "chain": {...chain object},
+    "isContract": false
+  },
+  "secondary": [
+    {
+      "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+      "chain": {...chain object},
+      "isContract": false
+    },
+    {
+      "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+      "chain": {...chain object},
+      "isContract": false
+    }
+  ],
+  "dataSourceTx": {
+    "txId": "ARWEAVE_IPFS_CID",
+    "txURL": "ARWEAVE_IPFS_URL"
+  },
+  "currentSignature": "SIGNATURE"
+}
+```
+
+### Update Identity
+
+>    💡 `secret-key` required
+
+> Updating secondary addresses from previous identity
+
+Route - `/v1/identity/`
     
-    Response - 
-    
-    ```json
-    {...identity object}
-    ```
+Method - `PATCH`
+
+Request Body -
+
+```json
+{
+  "identifier": "sax",
+  "provider": "metamask",
+  "default": {
+    "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+    "chain": 3,
+    "isContract": false
+  },
+  "secondary": [],
+  "currentSignature": "SIGNATURE"
+}
+```
+
+Response - 
+
+```json
+{
+  "id": "sax@metamask",
+  "identifier": "sax",
+  "provider": {...provider object},
+  "default": {
+    "address": "0x9aDF83d1bB317DA878C8677E5d108CecFcFe290c",
+    "chain": {...chain object},
+    "isContract": false
+  },
+  "secondary": [],
+  "dataSourceTx": {
+    "txId": "ARWEAVE_IPFS_CID",
+    "txURL": "ARWEAVE_IPFS_URL"
+  },
+  "currentSignature": "SIGNATURE"
+}
+```
