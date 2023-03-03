@@ -1,8 +1,10 @@
 # Provider
 
-- ### Get Provider
-    
-    Route - `/v1/providers/<provider_id>`
+### Get Provider
+
+> 💡`secret-key` required
+
+    Route - `/v1/providers/`
     
     Method - Get
     
@@ -10,22 +12,26 @@
     
     ```json
     {
-    	"id": "metamask",
-    	"logo": "logo URL",
-    	"delimiter": "@",
-    	"txHash": "transaction hash", // ethereum tx hash
-    	"registryContract": "address",
-        "dataSourceId": "bqd...",
-    	"dataSource": "IPFS",
-        "ownerId": "",
-        "nftSource": [
-            {
-                "id": "",
-                "chainId": "1",
-                "chain": {...chain object},
-                "resolverAddress": "ADDRESS"
-            }
-        ],
-    	"owner": {...user object}
+        "status": 200,
+        "timestamp": "",
+        data: {
+            "id": "metamask",
+            "logo": "logo URL",
+            "delimiter": "@",
+            "txHash": "transaction hash", // ethereum tx hash
+            "registryContract": "address",
+            "dataSourceId": "bqd...",
+            "dataSource": "IPFS",
+            "ownerId": "",
+            "nftSource": [
+                {
+                    "id": "",
+                    "chainId": "1",
+                    "chain": {...chain object},
+                    "resolverAddress": "ADDRESS"
+                }
+            ],
+            "owner": {...user object}
+        }
     }
     ```
