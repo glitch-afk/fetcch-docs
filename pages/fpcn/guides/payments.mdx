@@ -4,7 +4,7 @@
 
 >    💡 `secret-key` required
     
-Route - `/v1/payments/build/`
+Route - `/v1/payment/build-transaction/`
 
 Method - `POST`
 
@@ -12,13 +12,13 @@ Request Body -
 
 ```json
 {
-    "payee": "satyam@metamask",
-    "userConfig": {
-        "fromId":"satyam@phantom",
-        "fromToken":"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-        "fromChain":"1",
-        "fromAddress": "0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf",
-        "amount": "100000000"
+    "receiver": "solanax@fetcch",
+    "payerConfig": {
+        "payer": "test13@fetcch",
+        "address": "0x7a57f8e059cf2eeb6cdf4d12f3cda1c7c732057c88a6a55b54c6a681f6f6df2",
+        "token": "0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC",
+        "chain": 8,
+        "amount": "1000000"
     }
 }
 ```
@@ -32,21 +32,22 @@ Response -
     "data": {
         "transaction": {...transaction object},
         "approveTransaction": {...approval transaction object} | null,
-        "userConfig": {
-            "fromId": "satyam@phantom",
-            "fromChain": {...chain object},
-            "fromToken": {...token object},
-            "fromAddress": "0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf",
+        "payerConfig": {
+            "id": "satyam@phantom",
+            "chain": {...chain object},
+            "token": {...token object},
+            "address": "0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf",
             "amount": "100000000"
         },
-        "toConfig": {
-            "toId": "satyam@metamask",
+        "receiverConfig": {
+            "receiver": "satyam@metamask",
+            "address": "",
+            "token": "",
+            "amount": ""
+            "chain": {...chain object},
             "bridgeDetails": {
                 "tool": "",
                 "name": "",
-                "estAmount": "200000000",
-                "toChain": {...chain object},
-                "toToken": {...token object}
             }
         }
     }
@@ -57,7 +58,7 @@ Response -
 
 >    💡 `secret-key` required
     
-Route - `/v1/payments/build/`
+Route - `/v1/payment/build-transaction/`
 
 Method - `POST`
 
@@ -84,23 +85,65 @@ Response -
     "data": {
         "transaction": {...transaction object},
         "approveTransaction": {...approval transaction object} | null,
-        "userConfig": {
-            "fromId": "satyam@metamask",
-            "fromChain": {...chain object},
-            "fromToken": {...token object},
-            "fromAddress": "0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf",
+        "payerConfig": {
+            "id": "satyam@phantom",
+            "chain": {...chain object},
+            "token": {...token object},
+            "address": "0x7E5F4552091A69125d5DfCb7b8C2659029395Bdf",
             "amount": "100000000"
         },
-        "toConfig": {
-            "toId": "satyam@phantom",
+        "receiverConfig": {
+            "receiver": "satyam@metamask",
+            "address": "",
+            "token": "",
+            "amount": ""
+            "chain": {...chain object},
             "bridgeDetails": {
                 "tool": "",
                 "name": "",
-                "estAmount": "200000000",
-                "toChain": {...chain object},
-                "toToken": {...token object}
             }
         }
+    }
+}
+```
+
+### Dry Build Transaction
+
+>    💡 `secret-key` required
+    
+Route - `/v1/payments/build/`
+
+Method - `POST`
+
+Request Body -
+
+```json
+{
+    "receiver": "test@fetcch",
+    "payerConfig": {
+        "payer": "test2@fetcch",
+        "address": "0xf3B98C9a7aB18389F38a150F03aC289468E720a1",
+        "token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "chain": 1,
+        "amount": "1000000000"
+    }
+}
+```
+
+Response - 
+
+```json
+{
+    "status": 200,
+    "timestamp": "2023-03-07T23:30:20.589Z",
+    "data": {
+        "from": "0xf3B98C9a7aB18389F38a150F03aC289468E720a1",
+        "fromChain": {...chain object},
+        "value": "1000000000",
+        "fromToken": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "to": "0x1A27cdf069F2E8cc5b77b72BeA43851086aF5D83",
+        "toChain": {...chain object},
+        "type": "CROSS_CHAIN"
     }
 }
 ```
