@@ -100,6 +100,10 @@ Response -
 ### Create Identity
 
 >    💡 `secret-key` required
+
+>     If using APTOS as default chain, send public key of the user instead of address, public key is needed to verify signed messages, though we convert it to address and then store, so further interactions can be done using addresses and not public keys
+
+>     Above point valid only for default chain
     
 Route - `/v1/identity/`
 
