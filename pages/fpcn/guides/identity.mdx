@@ -178,6 +178,20 @@ Response -
 
 > Updating secondary addresses from previous identity
 
+
+> 💡 if `default.address` is being updated from APTOS to some chain, you must send `extraData` along with identity in format mentioned below, `extraData` will contain previous `publicKey` which will be used to verify `previousSignature` signed by previous `default.address`
+
+```jsx
+{
+	...identity,
+	"extraData": {
+		"publicKey": "0x...."
+	}
+}
+```
+
+> 💡 Above is only applicable if `default.chain` is updated from APTOS to some chain (incl APTOS)
+
 Route - `/v1/identity/`
     
 Method - `PATCH`
@@ -214,10 +228,6 @@ Response -
       "isContract": false
     },
     "secondary": [],
-    "dataSourceTx": {
-      "txId": "ARWEAVE_IPFS_CID",
-      "txURL": "ARWEAVE_IPFS_URL"
-    },
     "currentSignature": "SIGNATURE"
   }
 }
