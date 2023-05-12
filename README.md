@@ -1,3 +1,3 @@
 Fetcch Docs
 
-Moved to -> `https://docs.fetcch.xyz`
+Moved to -> https://docs.fetcch.xyz
